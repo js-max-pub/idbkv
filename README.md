@@ -8,10 +8,7 @@ less than 0.7 kb
 import DB from 'https://max.pub/idbkv/min.js';
 
 // save data:
-DB.person = {
-	name: 'John Doe',
-	birtday: '2020-02-03'
-}
+DB.person = {name: 'John Doe',birtday: '2020-02-03'}
 
 // load data:
 await DB.person
