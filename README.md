@@ -1,6 +1,7 @@
 # idbkv
 
-index-db key-value only store
+index-db key-value only store  
+less than 0.7 kb
 
 
 ```javascript
