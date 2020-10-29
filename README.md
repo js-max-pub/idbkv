@@ -1,22 +1,23 @@
 # idbkv
 
 index-db key-value only store  
-less than 0.7 kb
+less than 0.7 kb minified   
+less than 0.4 kb gzipped  
 
 
 ```javascript
 import DB from 'https://max.pub/idbkv/min.js';
 
 // save data:
-DB.person = {name: 'John Doe',birtday: '2020-02-03'}
+DB.john = {name: 'John Doe', birthday: '2020-02-03'}
 
 // load data:
-await DB.person  // -> {name: 'John Doe',birtday: '2020-02-03'}
-
-// delete data:
-delete DB.person  // -> removed from DB
+await DB.john  // -> {name: 'John Doe', birthday: '2020-02-03'}
 
 // show all available keys:
-await DB.keys    // -> ['person']
+await DB.keys    // -> ['john']
+
+// delete data:
+delete DB.john  // -> removed from DB
 
 ```

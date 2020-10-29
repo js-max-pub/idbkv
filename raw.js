@@ -1,6 +1,7 @@
 // index db key-value only store
 
 let DB = null;
+let S = 'default';
 const IDB = () => new Promise((resolve, reject) => {
 	if (DB) return resolve(DB);
 	// let STORE = null;
@@ -11,7 +12,7 @@ const IDB = () => new Promise((resolve, reject) => {
 	}
 	REQ.onupgradeneeded = event => {
 		DB = event.target.result
-		DB.createObjectStore('store');
+		DB.createObjectStore(S);
 		event.target.transaction.oncomplete = e => resolve(DB);
 	}
 })
@@ -19,7 +20,7 @@ const IDB = () => new Promise((resolve, reject) => {
 
 let DO = (DB, method, parameter = []) => new Promise((resolve, reject) => {
 	// console.log('DO', DB, method, parameter)
-	DB.transaction(['store'], "readwrite").objectStore('store')[method](...parameter).onsuccess = async event => {
+	DB.transaction([S], "readwrite").objectStore(S)[method](...parameter).onsuccess = async event => {
 		// console.log('DO success', method, parameter, event.target.result)
 		resolve(event.target.result);
 	};
@@ -38,6 +39,25 @@ let X = new Proxy({}, {
 	get: (target, key) => {
 		switch (key) {
 			case 'keys': return IDB().then(DB => DO(DB, 'getAllKeys'))
+			// case Symbol.iterator: () => {
+
+			// 	// ...it returns the iterator object:
+			// 	// 2. Onward, for..of works only with this iterator, asking it for next values
+			// 	return {
+			// 		current: 1,
+			// 		last: 10,
+
+			// 		// 3. next() is called on each iteration by the for..of loop
+			// 		next() {
+			// 			// 4. it should return the value as an object {done:.., value :...}
+			// 			if (this.current <= this.last) {
+			// 				return { done: false, value: this.current++ };
+			// 			} else {
+			// 				return { done: true };
+			// 			}
+			// 		}
+			// 	};
+			// }
 			// case 'k2': return X.keys
 			default: return IDB().then(DB => DO(DB, 'get', [key]))
 		}
