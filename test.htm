@@ -1,21 +1,21 @@
 <script type='module'>
-	import DB from './mod.js';
+	import KV from './mod.js';
 	(async function () {
 
 		// save data:
-		DB.john = { name: 'John Doe', birthday: '2020-02-03' }
-		DB.adam = { name: 'Adam Smith', birthday: '1900-01-01' }
+		KV.john = { name: 'John Doe', birthday: '2020-02-03' }
+		KV.adam = { name: 'Adam Smith', birthday: '1900-01-01' }
 
 		// for (let key in DB)
 		// 	console.log('key', key)
 
-		console.log(await DB.keys)
-		console.log(await DB.john)
-		console.log(await DB.adam)
+		console.log(await KV.keys)
+		console.log(await KV.john)
+		console.log(await KV.adam)
 
 		// delete data:
-		delete DB.john  // -> removed from DB
+		delete KV.john  // -> removed from DB
 
-		console.log(await DB.keys)
+		console.log(await KV.keys)
 	})()
 </script>

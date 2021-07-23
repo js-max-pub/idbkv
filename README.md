@@ -6,18 +6,22 @@ less than 0.4 kb gzipped
 
 
 ```javascript
-import DB from 'https://max.pub/idbkv/min.js';
+import KV from 'https://jsv.max.pub/idbkv/1.0/mod.js';
 
 // save data:
-DB.john = {name: 'John Doe', birthday: '2020-02-03'}
+KV.john = { name: 'John Doe', birthday: '2020-02-03' }
+KV.adam = { name: 'Adam Smith', birthday: '1900-01-01' }
 
-// load data:
-await DB.john  // -> {name: 'John Doe', birthday: '2020-02-03'}
+// for (let key in DB)
+// 	console.log('key', key)
 
-// show all available keys:
-await DB.keys    // -> ['john']
+console.log(await KV.keys)
+console.log(await KV.john)
+console.log(await KV.adam)
 
 // delete data:
-delete DB.john  // -> removed from DB
+delete KV.john  // -> removed from DB
+
+console.log(await KV.keys)
 
 ```
