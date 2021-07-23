@@ -24,4 +24,4 @@ delete KV.john  // -> removed from DB
 ```
 
 
-[[./test.htm]]
+[browser demo](https://js.max.pub/idbkv/test.htm) (look at the terminal output)
