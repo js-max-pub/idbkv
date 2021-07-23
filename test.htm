@@ -7,21 +7,22 @@
 		// save data:
 		KV.john = { name: 'John Doe', birthday: '2020-02-03' }
 		KV.adam = { name: 'Adam Smith', birthday: '1900-01-01' }
+		KV.jim = { name: 'Jimmy Mahone', birthday: '1970-07-03' }
 
 		// iterate over all keys:
 		for await (let key of KV)
 			console.log('key:  ', key, '\nvalue:', await KV[key])
 
 		// access specific keys
-		console.log(await KV.john)
-		console.log(await KV.adam)
+		console.log('john', await KV.john)
+		console.log('adam', await KV.adam)
 
 		// delete data:
 		delete KV.john  // -> removed from DB
 
 		// another way to list all keys
 		let { array } = await import('https://jsv.max.pub/array/2021/mod.js')
-		console.log(await array(KV))
+		console.log('array of keys', await array(KV))
 
 	})()
 </script>
