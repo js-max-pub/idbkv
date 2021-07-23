@@ -1,5 +1,5 @@
 <script type='module'>
-	import DB from './raw.js';
+	import DB from './mod.js';
 	(async function () {
 
 		// save data:
@@ -14,7 +14,8 @@
 		console.log(await DB.adam)
 
 		// delete data:
-		delete DB.person  // -> removed from DB
+		delete DB.john  // -> removed from DB
 
+		console.log(await DB.keys)
 	})()
 </script>
