@@ -1,21 +1,27 @@
 <script type='module'>
 	import KV from './mod.js';
-	(async function () {
 
+
+
+	(async function () {
 		// save data:
 		KV.john = { name: 'John Doe', birthday: '2020-02-03' }
 		KV.adam = { name: 'Adam Smith', birthday: '1900-01-01' }
 
-		// for (let key in DB)
-		// 	console.log('key', key)
+		// iterate over all keys:
+		for await (let key of KV)
+			console.log('key:  ', key, '\nvalue:', await KV[key])
 
-		console.log(await KV.keys)
+		// access specific keys
 		console.log(await KV.john)
 		console.log(await KV.adam)
 
 		// delete data:
 		delete KV.john  // -> removed from DB
 
-		console.log(await KV.keys)
+		// another way to list all keys
+		let { array } = await import('https://jsv.max.pub/array/2021/mod.js')
+		console.log(await array(KV))
+
 	})()
 </script>

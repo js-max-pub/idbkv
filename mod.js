@@ -38,7 +38,23 @@ let X = new Proxy({}, {
 	},
 	get: (target, key) => {
 		switch (key) {
-			case 'keys': return IDB().then(DB => DO(DB, 'getAllKeys'))
+			// case 'keys': return IDB().then(DB => DO(DB, 'getAllKeys'))
+			case Symbol.asyncIterator: return async function* () {
+				let keys = await IDB().then(DB => DO(DB, 'getAllKeys'))
+				// console.log("---keys", keys)
+				for (let key of keys)
+					yield key
+				// yield [key, await X[key]]
+			}
+			default: return IDB().then(DB => DO(DB, 'get', [key]))
+		}
+	}
+})
+// X[Symbol.asyncIterator] = () =>  IDB().then(DB => DO(DB, 'getAllKeys'))
+export default X;
+
+
+
 			// case Symbol.iterator: () => {
 
 			// 	// ...it returns the iterator object:
@@ -59,11 +75,6 @@ let X = new Proxy({}, {
 			// 	};
 			// }
 			// case 'k2': return X.keys
-			default: return IDB().then(DB => DO(DB, 'get', [key]))
-		}
-	}
-})
-export default X;
 
 
 
@@ -75,3 +86,23 @@ export default X;
 
 
 
+
+
+			// case Symbol.asyncIterator: return () => {
+			// 	IDB().then(DB => DO(DB, 'getAllKeys')).then(keys => {
+			// 		console.log("---keys", keys)
+			// 		return {
+			// 			i: 0,
+			// 			next() {
+			// 				console.log('i', this.i)
+			// 				if (this.i < keys.length) {
+			// 					// return { value: keys[this.i++], done: false }
+			// 					return Promise.resolve({ value: keys[this.i++], done: false });
+			// 				}
+			// 				// return { done: true }
+			// 				return Promise.resolve({ done: true });
+			// 			}
+			// 		}
+
+			// 	})
+			// }
