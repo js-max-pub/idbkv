@@ -1,6 +1,9 @@
 # idbkv
 
-index-db key-value only store  
+Key-Value Store based on IndexedDB  
+
+using standard JavaScript notation to store, iterate and delete entries  
+
 less than 0.7 kb minified   
 less than 0.4 kb gzipped  
 
