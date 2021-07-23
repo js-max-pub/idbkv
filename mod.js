@@ -50,59 +50,5 @@ let X = new Proxy({}, {
 		}
 	}
 })
-// X[Symbol.asyncIterator] = () =>  IDB().then(DB => DO(DB, 'getAllKeys'))
 export default X;
 
-
-
-			// case Symbol.iterator: () => {
-
-			// 	// ...it returns the iterator object:
-			// 	// 2. Onward, for..of works only with this iterator, asking it for next values
-			// 	return {
-			// 		current: 1,
-			// 		last: 10,
-
-			// 		// 3. next() is called on each iteration by the for..of loop
-			// 		next() {
-			// 			// 4. it should return the value as an object {done:.., value :...}
-			// 			if (this.current <= this.last) {
-			// 				return { done: false, value: this.current++ };
-			// 			} else {
-			// 				return { done: true };
-			// 			}
-			// 		}
-			// 	};
-			// }
-			// case 'k2': return X.keys
-
-
-
-
-
-
-
-
-
-
-
-
-
-			// case Symbol.asyncIterator: return () => {
-			// 	IDB().then(DB => DO(DB, 'getAllKeys')).then(keys => {
-			// 		console.log("---keys", keys)
-			// 		return {
-			// 			i: 0,
-			// 			next() {
-			// 				console.log('i', this.i)
-			// 				if (this.i < keys.length) {
-			// 					// return { value: keys[this.i++], done: false }
-			// 					return Promise.resolve({ value: keys[this.i++], done: false });
-			// 				}
-			// 				// return { done: true }
-			// 				return Promise.resolve({ done: true });
-			// 			}
-			// 		}
-
-			// 	})
-			// }
