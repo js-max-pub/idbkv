@@ -1,20 +1,28 @@
 <script type='module'>
-	import DB from './raw.js';
+	import KV from './mod.js';
+
+
+
 	(async function () {
-
 		// save data:
-		DB.john = { name: 'John Doe', birthday: '2020-02-03' }
-		DB.adam = { name: 'Adam Smith', birthday: '1900-01-01' }
+		KV.john = { name: 'John Doe', birthday: '2020-02-03' }
+		KV.adam = { name: 'Adam Smith', birthday: '1900-01-01' }
+		KV.jim = { name: 'Jimmy Mahone', birthday: '1970-07-03' }
 
-		// for (let key in DB)
-		// 	console.log('key', key)
+		// iterate over all keys:
+		for await (let key of KV)
+			console.log('key:  ', key, '\nvalue:', await KV[key])
 
-		console.log(await DB.keys)
-		console.log(await DB.john)
-		console.log(await DB.adam)
+		// access specific keys
+		console.log('john', await KV.john)
+		console.log('adam', await KV.adam)
 
 		// delete data:
-		delete DB.person  // -> removed from DB
+		delete KV.john  // -> removed from DB
+
+		// another way to list all keys
+		let { array } = await import('https://jsv.max.pub/array/2021/mod.js')
+		console.log('array of keys', await array(KV))
 
 	})()
 </script>

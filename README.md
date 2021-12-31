@@ -1,24 +1,30 @@
 # idbkv
 
-index-db key-value only store  
+Key-Value Store based on IndexedDB  
+
+using standard JavaScript notation to store, iterate and delete entries  
+
 less than 0.7 kb minified   
 less than 0.4 kb gzipped  
 
 
 ```javascript
-import DB from 'https://max.pub/idbkv/min.js';
-// import DB from 'https://ver.max.pub/max-pub/idbkv/20oct/raw.js';
+import KV from 'https://jsv.max.pub/idbkv/2021-07/mod.js';
 
 // save data:
-DB.john = {name: 'John Doe', birthday: '2020-02-03'}
+KV.john = {name: 'John Doe', birthday: '2020-02-03'}
 
 // load data:
-await DB.john  // -> {name: 'John Doe', birthday: '2020-02-03'}
+await KV.john  // -> {name: 'John Doe', birthday: '2020-02-03'}
 
-// show all available keys:
-await DB.keys    // -> ['john']
+// iterate over all available keys:
+for await (let key of KV)
+	console.log('key:', key)  // -> only 'john' for now
 
 // delete data:
-delete DB.john  // -> removed from DB
+delete KV.john  // -> removed from DB
 
 ```
+
+
+[browser demo](https://js.max.pub/idbkv/test.htm) (look at the terminal output)

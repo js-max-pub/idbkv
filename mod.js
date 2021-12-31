@@ -38,40 +38,17 @@ let X = new Proxy({}, {
 	},
 	get: (target, key) => {
 		switch (key) {
-			case 'keys': return IDB().then(DB => DO(DB, 'getAllKeys'))
-			// case Symbol.iterator: () => {
-
-			// 	// ...it returns the iterator object:
-			// 	// 2. Onward, for..of works only with this iterator, asking it for next values
-			// 	return {
-			// 		current: 1,
-			// 		last: 10,
-
-			// 		// 3. next() is called on each iteration by the for..of loop
-			// 		next() {
-			// 			// 4. it should return the value as an object {done:.., value :...}
-			// 			if (this.current <= this.last) {
-			// 				return { done: false, value: this.current++ };
-			// 			} else {
-			// 				return { done: true };
-			// 			}
-			// 		}
-			// 	};
-			// }
-			// case 'k2': return X.keys
+			// case 'keys': return IDB().then(DB => DO(DB, 'getAllKeys'))
+			case Symbol.asyncIterator: return async function* () {
+				let keys = await IDB().then(DB => DO(DB, 'getAllKeys'))
+				// console.log("---keys", keys)
+				for (let key of keys)
+					yield key
+				// yield [key, await X[key]]
+			}
 			default: return IDB().then(DB => DO(DB, 'get', [key]))
 		}
 	}
 })
 export default X;
-
-
-
-
-
-
-
-
-
-
 
